@@ -29,37 +29,37 @@ app.use(function (req, res, next) {
 });
 */
 // 保存用户的下注纪录
-app.post('/bet', (req, res) => {
+app.post('/bet', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const info = req.body;
         let v = (0, referral_1.validReferralBet)(info);
-        if (!v) {
+        if (v) {
             res.send(api_result_1.ApiResults.PARAM_ERROR(v));
             return;
         }
-        referral_1.WCDB.WriteRefBets(info);
+        yield referral_1.WCDB.WriteRefBets(info);
         res.send(api_result_1.ApiResults.OK());
     }
     catch (e) {
         res.send(api_result_1.ApiResults.UNKNOWN_ERROR(`${e}`));
     }
-});
+}));
 // 保存一个用户的邀请码.
-app.post('/refcode', (req, res) => {
+app.post('/refcode', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const info = req.body;
         let v = (0, referral_1.validReferralCode)(info);
-        if (!v) {
+        if (v) {
             res.send(api_result_1.ApiResults.PARAM_ERROR(v));
             return;
         }
-        referral_1.WCDB.WriteRefCode(info);
+        yield referral_1.WCDB.WriteRefCode(info);
         res.send(api_result_1.ApiResults.OK());
     }
     catch (e) {
         res.send(api_result_1.ApiResults.UNKNOWN_ERROR(`${e}`));
     }
-});
+}));
 // 查询一个wallet地址是否有邀请码, 如果有就直接用现存的.
 // 如果没有, 就按项目方的要求调用API生成一个, 然后保存起来.
 app.get('/refcode', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

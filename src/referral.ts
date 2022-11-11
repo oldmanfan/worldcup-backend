@@ -2,12 +2,14 @@ import {pool} from "./database";
 
 // 推荐码下单
 export interface ReferralBet {
+    chainId: number,
     wallet: string;
     matchId: string;
     guessType: string;
     betAmount: string;
     betTime: string;
     referralCode: string;
+    txHash: string;
 }
 
 // 某个钱包地址的推荐码
@@ -17,6 +19,9 @@ export interface ReferralCode {
 }
 
 export function validReferralBet(refBet: ReferralBet): string | null {
+    if (!refBet.chainId ) {
+        return "chainId is undefined";
+    }
     if (!refBet.wallet || refBet.wallet.length == 0) {
         return "wallet is invalid";
     }
@@ -67,9 +72,9 @@ export class WCDB {
     }
 
     static async WriteRefBets(bet: ReferralBet) {
-        let sql = 'INSERT INTO ref_bets(Id, wallet, match_id, guess_type, bet_amount, bet_time, ref_code) VALUES(0,?,?,?,?,?,?)';
-        let params = [bet.wallet, bet.matchId, bet.guessType, bet.betAmount, bet.betTime, bet.referralCode];
+        let sql = 'INSERT INTO ref_bets(Id, chain_id, wallet, match_id, guess_type, bet_amount, bet_time, ref_code, tx_hash) VALUES(0,?,?,?,?,?,?,?,?)';
+        let params = [bet.chainId, bet.wallet, bet.matchId, bet.guessType, bet.betAmount, bet.betTime, bet.referralCode, bet.txHash];
 
-        return await pool.execute(sql, params)
+        await pool.execute(sql, params)
     }
 }

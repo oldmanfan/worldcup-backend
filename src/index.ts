@@ -19,16 +19,16 @@ app.use(function (req, res, next) {
 */
 
 // 保存用户的下注纪录
-app.post('/bet', (req, res) => {
+app.post('/bet', async (req, res) => {
     try {
         const info = req.body as ReferralBet;
         let v = validReferralBet(info);
-        if (!v) {
+        if (v) {
             res.send(ApiResults.PARAM_ERROR(v as string));
             return;
         }
 
-        WCDB.WriteRefBets(info);
+        await WCDB.WriteRefBets(info);
         res.send(ApiResults.OK());
     } catch (e) {
         res.send(ApiResults.UNKNOWN_ERROR(`${e}`));
@@ -36,16 +36,16 @@ app.post('/bet', (req, res) => {
 });
 
 // 保存一个用户的邀请码.
-app.post('/refcode', (req, res) => {
+app.post('/refcode', async (req, res) => {
     try {
         const info = req.body as ReferralCode;
          let v = validReferralCode(info);
-        if (!v) {
+        if (v) {
             res.send(ApiResults.PARAM_ERROR(v as string));
             return;
         }
 
-        WCDB.WriteRefCode(info);
+        await WCDB.WriteRefCode(info);
         res.send(ApiResults.OK());
     } catch (e) {
         res.send(ApiResults.UNKNOWN_ERROR(`${e}`));

@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WCDB = exports.validReferralCode = exports.validReferralBet = void 0;
 const database_1 = require("./database");
 function validReferralBet(refBet) {
+    if (!refBet.chainId) {
+        return "chainId is undefined";
+    }
     if (!refBet.wallet || refBet.wallet.length == 0) {
         return "wallet is invalid";
     }
@@ -60,9 +63,9 @@ class WCDB {
     }
     static WriteRefBets(bet) {
         return __awaiter(this, void 0, void 0, function* () {
-            let sql = 'INSERT INTO ref_bets(Id, wallet, match_id, guess_type, bet_amount, bet_time, ref_code) VALUES(0,?,?,?,?,?,?)';
-            let params = [bet.wallet, bet.matchId, bet.guessType, bet.betAmount, bet.betTime, bet.referralCode];
-            return yield database_1.pool.execute(sql, params);
+            let sql = 'INSERT INTO ref_bets(Id, chain_id, wallet, match_id, guess_type, bet_amount, bet_time, ref_code, tx_hash) VALUES(0,?,?,?,?,?,?,?,?)';
+            let params = [bet.chainId, bet.wallet, bet.matchId, bet.guessType, bet.betAmount, bet.betTime, bet.referralCode, bet.txHash];
+            yield database_1.pool.execute(sql, params);
         });
     }
 }
