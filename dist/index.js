@@ -17,17 +17,12 @@ const api_result_1 = require("./api-result");
 const referral_1 = require("./referral");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-/*
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     next();
 });
-*/
 // 保存用户的下注纪录
 app.post('/bet', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
