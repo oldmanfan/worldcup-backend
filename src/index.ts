@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-/*
+
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
@@ -16,7 +16,7 @@ app.use(function (req, res, next) {
     );
     next();
 });
-*/
+
 
 // 保存用户的下注纪录
 app.post('/bet', async (req, res) => {
