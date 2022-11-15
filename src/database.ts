@@ -11,15 +11,17 @@ const host = process.env.MYSQL_HOST || "127.0.0.1"
 const user = process.env.MYSQL_USER || "root";
 const password = process.env.MYSQL_PASSWORD || "123456";
 const database = process.env.MYSQL_DB || "wc_qatar";
+const port = parseInt(process.env.MYSQL_PORT!) || 3306;
 
-console.log(`mysql setting: ${host} ${user} ${password} ${database}`);
+console.log(`mysql setting: ${host} ${port} ${user} ${password} ${database}`);
 
 export var pool = mysql.createPool({
     connectionLimit: 10,
     host,
     user,
     password,
-    database
+    database,
+    port
 });
 
 // pool.getConnection((err: any, connection: any) => {
