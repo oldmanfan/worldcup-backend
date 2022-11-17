@@ -16,6 +16,7 @@ CREATE TABLE `ref_bets` (
   `wallet` varchar(255) NOT NULL,
   `match_id` varchar(255) NOT NULL,
   `guess_type` varchar(255) NOT NULL,
+  `pay_token` varchar(255) NOT NULL,
   `bet_amount` varchar(255) NOT NULL,
   `bet_time` varchar(255) NOT NULL,
   `ref_code` varchar(255) NOT NULL,

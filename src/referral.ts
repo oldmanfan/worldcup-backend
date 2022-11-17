@@ -6,6 +6,7 @@ export interface ReferralBet {
     wallet: string;
     matchId: string;
     guessType: string;
+    payToken: string;
     betAmount: string;
     betTime: string;
     referralCode: string;
@@ -30,6 +31,9 @@ export function validReferralBet(refBet: ReferralBet): string | null {
     }
     if (!refBet.guessType || refBet.guessType.length == 0) {
         return "guessType is invalid";
+    }
+    if (!refBet.payToken || refBet.payToken.length == 0) {
+        return "payToken is invalid";
     }
     if (!refBet.betAmount || refBet.betAmount.length == 0) {
         return "betAmount is invalid";
@@ -72,8 +76,8 @@ export class WCDB {
     }
 
     static async WriteRefBets(bet: ReferralBet) {
-        let sql = 'INSERT INTO ref_bets(Id, chain_id, wallet, match_id, guess_type, bet_amount, bet_time, ref_code, tx_hash) VALUES(0,?,?,?,?,?,?,?,?)';
-        let params = [bet.chainId, bet.wallet, bet.matchId, bet.guessType, bet.betAmount, bet.betTime, bet.referralCode, bet.txHash];
+        let sql = 'INSERT INTO ref_bets(Id, chain_id, wallet, match_id, guess_type, pay_token, bet_amount, bet_time, ref_code, tx_hash) VALUES(0,?,?,?,?,?,?,?,?,?)';
+        let params = [bet.chainId, bet.wallet, bet.matchId, bet.guessType, bet.payToken, bet.betAmount, bet.betTime, bet.referralCode, bet.txHash];
 
         await pool.execute(sql, params)
     }
